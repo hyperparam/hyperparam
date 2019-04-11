@@ -9,6 +9,10 @@ module Hyperparam
         # TODO: test values
       end
 
+      it "supports creation with an indices initialiser" do
+        Matrix(UInt32, 2, 3).build { |i, j| i * j }
+      end      
+
       it "supports creation with a single, repeated value" do
         matrix = Matrix(Int32, 2, 3).of 123
         # TODO: test values

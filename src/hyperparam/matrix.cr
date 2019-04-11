@@ -17,6 +17,15 @@ module Hyperparam
       @buffer = Pointer(T).malloc(size, &block)
     end
 
+    # Creates a Matrix, invoking *initialiser* with each pair of indices.
+    def self.build(&initialiser : UInt32, UInt32 -> T)
+      Matrix(T, M, N).new do |idx|
+        i = (idx / N).to_u32
+        j = (idx % N).to_u32
+        initialiser.call i, j
+      end
+    end
+
     # Creates a Matrix with each element initialized as *value*.
     def self.of(value : T)
       Matrix(T, M, N).new { value }
